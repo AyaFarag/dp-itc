@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = App\post::get();
+        $comments = App\comment::get();
+        return view('home', compact('posts', 'comments'));
     }
 }

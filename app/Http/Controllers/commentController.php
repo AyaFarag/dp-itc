@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate;
+use App;
 
 class commentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,9 @@ class commentController extends Controller
      */
     public function index()
     {
-        //
+        $post_id = post::post_id();
+        $comments = App\comment::where('fk_post_id',$post_id)->orderBy('comment_id','desc')->get();
+        return view('home')->with('comments')->with('post_id');
     }
 
     /**
@@ -34,7 +44,15 @@ class commentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = Auth::id();
+        $post_id = post::post_id();
+        $addcomment = new App\comment();
+        $addcomment->content = $request->content;
+        $addcomment->fk_user_id = $id;
+        $addcomment->fk_post_id = $post_id;
+        $addcomment->save();
+
+        return redirect()->route('home' ,compact('id','post_id'));
     }
 
     /**

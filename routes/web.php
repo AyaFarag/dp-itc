@@ -26,3 +26,6 @@ Route::post('/post', 'postController@store');
 
 // update post
 Route::post('/update/post' , 'postController@update');
+
+// comments routs
+Route::resource('comment', 'commentController');

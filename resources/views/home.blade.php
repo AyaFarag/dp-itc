@@ -25,29 +25,28 @@
 
                     @foreach ($posts as $post)    
                         <div class="card-body bg-light m-1">
-                                <p>{{ $post->content }}</p>
-
-                                
-
+ 
                             {{-- edit and delete --}}
                                 <div class="float-right">
                                         <div class="d-inline-block">
                                             <form action="{{action('postController@destroy', $post->post_id)}}" method="POST">
                                               {{ csrf_field() }}
                                               <input type="hidden" name="_method" value="DELETE" />
-                                              <button type="submit" class="bg-white border border-white"><span><i class="fas fa-trash text-danger"></i></span></button>
+                                              <button type="submit" class="bg-light border border-white"><span><i class="fas fa-trash text-danger"></i></span></button>
                                           </form>
                                             </div>
                                         
                                         <div class="d-inline-block">
                                           <form action="{{action('postController@edit', $post->post_id)}}" method="GET">
                                               {{ csrf_field() }}
-                                            <button type="submit" class="bg-white border border-white"><span><i class="fas fa-edit text-primary"></i></span></button>
+                                            <button type="submit" class="bg-light border border-white"><span><i class="fas fa-edit text-primary"></i></span></button>
                                           </form>
                                         </div>
                                     </div>
                             {{-- end edite and delete --}}
 
+                                    {{--  post content  --}}
+                                    <p>{{ $post->content }}</p>
 
                         {{-- comments --}}
                         <p>
@@ -61,16 +60,19 @@
 
                                  {{-- add comment --}}
                                <form action="" method="POST">
-                                     {{ csrf_field() }}
-                                 <label></label>
-                                 <textarea rows="2" class="form-control"></textarea>
-                                 <button class="btn btn-light mt-1 float-right">Comment</button>
+                                        {{ csrf_field() }}
+                                    <label></label>
+                                    <textarea rows="2" class="form-control"></textarea>
+                                    <button class="btn btn-light mt-1 float-right">Comment</button>
                                </form>
                                {{-- end add comment --}}
 
 
                                {{-- comment content --}}
                                <div class="card-body bg-light mt-1">
+                                   @foreach ($comments as $comment)
+                                       <p> </p>
+                                   @endforeach
                                      Comment content.
 
                                {{-- edit and delete --}}

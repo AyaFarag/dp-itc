@@ -28,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('update-post', function ($user, $post) {
             return $user->id == $post->fk_user_id;
         });
+        
+
 
         
     }
